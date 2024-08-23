@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 21:18:53 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/08/20 19:36:33 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/21 17:54:04 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_free_matrix(void	*matrix_address_void)
 void	exit_error_free(t_mem_allocation *mem_allocation, char *error_msg)
 {
 	if (errno)
-		ft_printf(2,"Error\n%s: %s\n", error_msg, strerror(errno));
+		ft_printf(2, "Error\n%s: %s\n", error_msg, strerror(errno));
 	else
 		ft_printf(2, "Error\n%s\n", error_msg);
 	get_next_line(-1);

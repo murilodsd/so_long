@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 16:03:51 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/08/21 10:23:46 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/23 13:06:16 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	save_pointer(t_mem_allocation *mem_allocation, t_list **ptr_or_matrix_list,
 {
 	t_list	*new_node;
 
+
 	new_node = ft_lstnew(ptr);
 	if (!new_node)
 		exit_error_free(mem_allocation, "Failed to allocate mem for a node");
@@ -76,27 +77,29 @@ void	get_map_info(t_game *game)
 	concat_lines = ft_calloc(1,sizeof(char));
 	check_mem_alloc(&(game->mem_allocation), &(game->mem_allocation.ptr_mem_list), concat_lines, "ft_calloc failed");
 	line = get_next_line(game->map_fd);
+	//CONFERIR AS CONDICOES DO NULL; TEM QUE TER CHECK NO CASO DE SER NULL? 
 	if (line == NULL && errno > 0)
-		check_mem_alloc(&(game->mem_allocation), &(game->mem_allocation.ptr_mem_list), line, "get_next_line failed");
+		exit_error_free(&(game->mem_allocation), "get_next_line failed");
 	else if (line == NULL && errno == 0)
 		exit_error_free(&(game->mem_allocation), "Empty map");
 	game->width = ft_strlen(line) - 1;
 	while (line)
 	{
+		game->height++;
 		concat_lines = ft_strjoin(concat_lines, line);
 		free(line);
 		check_mem_alloc(&(game->mem_allocation), &(game->mem_allocation.ptr_mem_list), concat_lines, "ft_strjoin failed");
 		line = get_next_line(game->map_fd);
 		if (line == NULL && errno > 0)
-			check_mem_alloc(&(game->mem_allocation), &(game->mem_allocation.ptr_mem_list), line, "get_next_line failed");
-		game->height++;
+			exit_error_free(&(game->mem_allocation), "get_next_line failed");
 	}
-	free(line);
+	//PRECISA DESSE free(LINE) AQUI?
+	// free(line);
 	game->map_matrix = ft_split(concat_lines, '\n');
 	check_mem_alloc(&(game->mem_allocation), &(game->mem_allocation.matrix_mem_list), game->map_matrix, "ft_split failed");
 }
 
-void	check_components(t_game *game, char component, size_t pos_y, size_t pos_x)
+void	check_map_components(t_game *game, char component, size_t pos_y, size_t pos_x)
 {
 	static int count_player;
 	static int count_exit;
@@ -125,7 +128,7 @@ void	check_components(t_game *game, char component, size_t pos_y, size_t pos_x)
 		exit_error_free(&(game->mem_allocation), "Must have one exit!");
 }
 
-void	check_layout(t_game *game, char component, size_t pos_y, size_t pos_x)
+void	check_map_layout(t_game *game, char component, size_t pos_y, size_t pos_x)
 {
 	int	is_firstorlast_row;
 	int	is_firstorlast_col;
@@ -138,6 +141,7 @@ void	check_layout(t_game *game, char component, size_t pos_y, size_t pos_x)
 		exit_error_free(&(game->mem_allocation), "The map must be rectangular");
 }
 
+
 void	init_game_variables(t_game *game, char **argv)
 {
 	errno = 0;
@@ -146,6 +150,27 @@ void	init_game_variables(t_game *game, char **argv)
 	game->map_file_name = argv[1];
 	game->width = 0;
 	game->height = 0;
+}
+
+void	check_map(t_game *game)
+{
+	int	x;
+	int	y;
+	
+	y = 0;
+	while(game->map_matrix[y])
+	{
+		x = 0;
+		while(game->map_matrix[y][x])
+		{
+			ft_printf(1,"%c",game->map_matrix[y][x]);
+			check_map_components(game, game->map_matrix[y][x], y, x);
+			check_map_layout(game, game->map_matrix[y][x], y, x);
+			x++;
+		}
+		ft_printf(1,"%c",'\n');
+		y++;
+	}
 }
 
 int main(int argc, char *argv[])
@@ -159,12 +184,6 @@ int main(int argc, char *argv[])
 	ft_printf(1,"%s\n",game.map_file_name);
 	get_map_fd(&game);
 	get_map_info(&game);
-/* 	ft_printf(1,"%s\n",game.map_matrix[0]);
-	ft_printf(1,"%s\n",game.map_matrix[1]);
-	ft_printf(1,"%s\n",game.map_matrix[2]);
-	ft_printf(1,"%s\n",game.map_matrix[3]);
-	ft_printf(1,"%s\n",game.map_matrix[4]);
-	ft_printf(1,"%s\n",game.map_matrix[5]); */
 	
 	y = 0;
 	while(game.map_matrix[y])

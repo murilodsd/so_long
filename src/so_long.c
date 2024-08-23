@@ -47,22 +47,32 @@ void	change_player_img(t_game *game)
 	mlx_put_image_to_window(game->mlx_connection, game->mlx_window, game->img_player_r, game->player.x * SIZE, game->player.y * SIZE);
 }
 
-/* int main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	t_game	game;
 
-	if (argc == 2)
+	if (argc != 2)
 	{
-		errno = 0;
-		game.ptr_mem_list = NULL;
-		game.map_file_name = argv[1];
-		game.map_matrix = ft_calloc(1, sizeof(char*));
-		game.size = SIZE;
-		game.exit.is_open = false;
-		game.mlx_connection = mlx_init();
-		game.width = 0;
-		game.height = 0;
-		game.map_matrix = ft_calloc(1, sizeof(char*));
+		printf("The program need one argument (map) and just that!");
+		return (1);
+	}
+	(void)argc;
+	errno = 0;
+	game.mem_allocation.ptr_mem_list = NULL;
+	game.mem_allocation.matrix_mem_list= NULL;
+	ft_printf(1,"comecou\n");
+	game.map_file_name = argv[1];
+	ft_printf(1,"%s\n",game.map_file_name);
+	game.width = 0;
+	game.height = 0;
+	game.exit.is_open = false;
+	game.mlx_connection = mlx_init();
+	game.size = SIZE;
+	game.exit.is_open = false;
+	get_map_fd(&game);
+	ft_printf(1,"%d\n",game.map_fd);
+	get_map_info(&game);
+
 		if (game.mlx_connection == NULL)
 		{
 			fprintf(stderr, "Error: mlx_init() failed\n");
@@ -83,11 +93,10 @@ void	change_player_img(t_game *game)
 		printf("criou janela\n");
 		mlx_key_hook(game.mlx_window, handle_input, &game);
 		mlx_loop(game.mlx_connection);
-		return (0);
-	}
-	else
-	{
-		printf("The program need one argument (map) and just that!");
-		return (1);
-	}
-} */
+	check_map(&game);
+	if (game.mem_allocation.ptr_mem_list != NULL)	
+		ft_lstclear(&(game.mem_allocation.ptr_mem_list),free);
+	if (game.mem_allocation.matrix_mem_list != NULL)	
+		ft_lstclear(&(game.mem_allocation.matrix_mem_list),ft_free_matrix);
+	return (0);
+}
