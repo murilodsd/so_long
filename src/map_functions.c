@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 16:03:51 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/08/20 19:36:56 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/21 10:23:46 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,7 @@ void	exit_error_free(t_mem_allocation *mem_allocation, char *error_msg)
 void	save_pointer(t_mem_allocation *mem_allocation, t_list **ptr_or_matrix_list, void *ptr)
 {
 	t_list	*new_node;
-/* 	int		i;
 
-	if (ptr_type == TYPE_POINTER)
-	{
-		i = 0;
-		while(((void **)ptr)[i])
-		{
-			new_node = ft_lstnew(ptr);
-			if (!new_node)
-				exit_error_free(ptr_mem_list, "Failed to allocate mem for a node");
-			ft_lstadd_back(ptr_mem_list, new_node);
-			free(new_node);
-			i++;
-		} 
-	} */
 	new_node = ft_lstnew(ptr);
 	if (!new_node)
 		exit_error_free(mem_allocation, "Failed to allocate mem for a node");
@@ -152,23 +138,26 @@ void	check_layout(t_game *game, char component, size_t pos_y, size_t pos_x)
 		exit_error_free(&(game->mem_allocation), "The map must be rectangular");
 }
 
+void	init_game_variables(t_game *game, char **argv)
+{
+	errno = 0;
+	game->mem_allocation.ptr_mem_list = NULL;
+	game->mem_allocation.matrix_mem_list= NULL;
+	game->map_file_name = argv[1];
+	game->width = 0;
+	game->height = 0;
+}
+
 int main(int argc, char *argv[])
 {
 	t_game	game;
 	int		x,y;
 
 	(void)argc;
-	errno = 0;
-	game.mem_allocation.ptr_mem_list = NULL;
-	game.mem_allocation.matrix_mem_list= NULL;
 	ft_printf(1,"comecou\n");
-	game.map_file_name = argv[1];
+	init_game_variables(&game, argv);
 	ft_printf(1,"%s\n",game.map_file_name);
-	game.width = 0;
-	game.height = 0;
-	
 	get_map_fd(&game);
-	ft_printf(1,"%d\n",game.map_fd);
 	get_map_info(&game);
 /* 	ft_printf(1,"%s\n",game.map_matrix[0]);
 	ft_printf(1,"%s\n",game.map_matrix[1]);
@@ -191,5 +180,9 @@ int main(int argc, char *argv[])
 		ft_printf(1,"%c",'\n');
 		y++;
 	}
+	if (game.mem_allocation.ptr_mem_list != NULL)	
+		ft_lstclear(&(game.mem_allocation.ptr_mem_list),free);
+	if (game.mem_allocation.matrix_mem_list != NULL)	
+		ft_lstclear(&(game.mem_allocation.matrix_mem_list),ft_free_matrix);
 	return 0;
 }
