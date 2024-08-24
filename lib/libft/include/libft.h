@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:52:36 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/08/20 11:34:51 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/24 15:02:46 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,5 +143,9 @@ char	*get_next_line(int fd);
 //--------------------------------------------------------//
 //--------------CHECK_ERROR AND FREE MEMORY---------------//
 //--------------------------------------------------------//
+void	ft_free_exit_error(t_mem_allocation *mem_allocation, char *error_msg);
+void	ft_save_pointer(t_mem_allocation *mem_allocation, t_list **ptr_or_matrix_list, void *ptr);
+void	ft_check_mem_alloc(t_mem_allocation *mem_allocation, t_list **ptr_or_matrix_list, void *ptr, char *error_msg);
+void	ft_free_matrix(void *matrix_void);
 void	ft_free_buffer(char **buffer, int size);
 #endif

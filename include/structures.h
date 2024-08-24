@@ -6,13 +6,13 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 23:04:47 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/08/20 11:04:42 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/23 20:58:24 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
-# include "so_long.h"
+# include "./so_long.h"
 
 typedef struct s_point {
 	size_t	x;
@@ -46,6 +46,7 @@ typedef struct s_game
 	void	*img_exit;
 	void	*img_player_r;
 	void	*img_player_l;
+	void	*img_collectable;
 	t_player	player;
 	t_exit	exit;
 	char	*map_file_name;

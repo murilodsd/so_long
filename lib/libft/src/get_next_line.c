@@ -6,11 +6,11 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:37:07 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/08/19 17:28:25 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/23 20:52:51 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/libft.h"
 
 /**
  * @brief Frees memory allocated for a buffer and a pointer.
@@ -151,11 +151,11 @@ char	*get_next_line(int fd)
 	}
 	return (line);
 }
-#include <fcntl.h>
+/* #include <fcntl.h>
 #include <stdio.h>
 #include <strings.h>
 
-/* int main(void)
+int main(void)
 {
 	int	fd1,fd2;
 	char	*line;
@@ -167,8 +167,17 @@ char	*get_next_line(int fd)
 	//printf("%s",get_next_line(fd0));
 	//printf("%s",get_next_line(fd2));
 
-	fd1 = open("Makefile", O_RDWR);
-	fd2 = open("README.md", O_RDWR);
+	fd1 = open("../../../README.md", O_RDWR);
+	fd2 = open("ft_strtrim.c", O_RDWR);
+	line = get_next_line(fd1);
+	printf("%s",line);
+	free(line);
+	line = get_next_line(fd1);
+	printf("%s",line);
+	free(line);
+	line = get_next_line(fd1);
+	printf("%s",line);
+	free(line);
 	line = get_next_line(fd1);
 	printf("%s",line);
 	free(line);

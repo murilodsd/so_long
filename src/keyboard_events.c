@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:10:50 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/08/15 09:37:56 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/24 00:04:53 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ int	handle_input(int key, t_game *game)
 	if (key == XK_Escape)
 	{
 		printf("Foi pressionada a tecla %d\n", key);
-		mlx_destroy_window(game->mlx_connection, game->mlx_window);
-		mlx_destroy_display(game->mlx_connection);
-		free(game->mlx_connection);
-		exit(EXIT_FAILURE);
+		finish_game(game);
+		exit(EXIT_SUCCESS);
 	}
 	else if (key == XK_s && game->player.y < (HEIGHT / SIZE) - 1)
 	{

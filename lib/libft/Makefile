@@ -16,7 +16,8 @@ ft_isprint.c ft_putnbr_fd.c ft_strlen.c ft_toupper.c ft_countdec.c \
 ft_lstadd_front.c ft_lstadd_back.c \
 ft_lstclear.c ft_lstdelone.c ft_lstiter.c \
 ft_lstlast.c ft_lstmap.c ft_lstnew.c \
-ft_lstsize.c ft_free_buffer.c
+ft_lstsize.c ft_free_buffer.c ft_save_pointer.c ft_free_exit_error.c \
+ft_check_mem_alloc.c ft_free_matrix.c
 SRCS_PRINTF=ft_printf.c ft_print_p_fd.c \
 ft_printnbr_fd.c ft_print_s_c_fd.c ft_printnbr_base_fd.c
 SRCS_GET_NEXT_LINE=get_next_line.c
