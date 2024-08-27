@@ -6,29 +6,15 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 16:03:51 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/08/24 15:04:43 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:25:51 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-
-void	destroy_free_exit_error(t_game *game, char *error_msg)
-{
-	call_destroy_functions(game);
-	get_next_line(-1);
-	ft_free_exit_error(&(game->mem_allocation), error_msg);
-}
-
-void	check_mem(t_game *game, t_list **ptr_or_matrix_list, void *ptr, char *error_msg)
-{
-	if (!ptr)
-		destroy_free_exit_error(game, error_msg);
-	else
-		ft_save_pointer(&(game->mem_allocation), ptr_or_matrix_list, ptr);
-}
+#include "../include/so_long.h"
 
 void	get_map_fd(t_game *game)
 {
+	ft_printf(1,"%s\n",game->map_file_name);
 	game->map_fd = open(game->map_file_name, O_RDONLY);
 	if (game->map_fd == -1)
 		destroy_free_exit_error(game, "Error opening file");
@@ -71,13 +57,13 @@ void	check_map_components(t_game *game, char component, size_t pos_y, size_t pos
 	{
 		count_player++;
 		if (count_player > 1)
-			destroy_free_exit_error(game, "Must have just one player!");
+			destroy_free_exit_error(game, "Must have just one starting position!");
 		game->player.x = pos_x;
 		game->player.y = pos_y;
 	}
-	if (component == 'C')
+	else if (component == 'C')
 		game->collectible++;
-	if (component == 'E')
+	else if (component == 'E')
 	{
 		count_exit++;
 		if (count_exit > 1)
@@ -86,9 +72,11 @@ void	check_map_components(t_game *game, char component, size_t pos_y, size_t pos
 		game->exit.y = pos_y;
 	}
 	if (!count_player && pos_x == game->width -1 && pos_y == game->height -1)
-		destroy_free_exit_error(game, "Must have one player!");
+		destroy_free_exit_error(game, "Must have one starting position!");
 	if (!count_exit && pos_x == game->width -1 && pos_y == game->height -1)
 		destroy_free_exit_error(game, "Must have one exit!");
+	if (!game->collectible && pos_x == game->width -1 && pos_y == game->height -1)
+		destroy_free_exit_error(game, "Must have at least one collectible!");
 }
 
 void	check_map_layout(t_game *game, char component, size_t pos_y, size_t pos_x)

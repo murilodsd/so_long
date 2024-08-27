@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 23:04:47 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/08/23 20:58:24 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/26 15:48:52 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_point {
 typedef struct s_player {
 	size_t	x;
 	size_t	y;
+	char	view_to;
 }	t_player;
 
 typedef struct s_exit {
@@ -46,7 +47,12 @@ typedef struct s_game
 	void	*img_exit;
 	void	*img_player_r;
 	void	*img_player_l;
-	void	*img_collectable;
+	void	*img_player_u;
+	void	*img_player_d;
+	void	*img_player_exit;
+	void	*img_dead;
+	void	*img_collectible;
+	void	*img_enemy;
 	t_player	player;
 	t_exit	exit;
 	char	*map_file_name;
