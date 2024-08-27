@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 16:03:51 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/08/26 16:25:51 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:17:19 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	get_map_fd(t_game *game)
 {
-	ft_printf(1,"%s\n",game->map_file_name);
+	ft_printf(1,"dentro do get map  o map file name é %s\n",game->map_file_name);
 	game->map_fd = open(game->map_file_name, O_RDONLY);
 	if (game->map_fd == -1)
 		destroy_free_exit_error(game, "Error opening file");
@@ -68,8 +68,6 @@ void	check_map_components(t_game *game, char component, size_t pos_y, size_t pos
 		count_exit++;
 		if (count_exit > 1)
 			destroy_free_exit_error(game, "Must have just one exit");
-		game->exit.x = pos_x;
-		game->exit.y = pos_y;
 	}
 	if (!count_player && pos_x == game->width -1 && pos_y == game->height -1)
 		destroy_free_exit_error(game, "Must have one starting position!");

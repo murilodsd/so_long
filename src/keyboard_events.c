@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:10:50 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/08/26 23:28:24 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/27 10:40:18 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,30 +102,35 @@ int	handle_input(int key, t_game *game)
 		finish_game(game);
 		exit(EXIT_SUCCESS);
 	}
-	else if (key == XK_s && game->map_matrix[pos_y + 1][pos_x] != '1')
-		execute_movement(game, key);
-	else if (key == XK_w && game->map_matrix[pos_y - 1][pos_x] != '1')
-		execute_movement(game, key);
-	else if (key == XK_d && game->map_matrix[pos_y][pos_x + 1] != '1')
-		execute_movement(game, key);
-	else if (key == XK_a && game->map_matrix[pos_y][pos_x - 1] != '1')
-		execute_movement(game, key);
-	if (game->map_matrix[game->player.y][game->player.x] == 'C')
+	else if (game->game_over == false)
 	{
-		game->collectible--;
-		if (game->collectible == 0)
-			game->exit.is_open = TRUE;
-		game->map_matrix[game->player.y][game->player.x] = '0';
-	}
-	else if (game->map_matrix[game->player.y][game->player.x] == 'E' && game->collectible == 0)
-	{
-		printf("YOU WON\n");
-		mlx_string_put(game->mlx_connection, game->mlx_window, (game->width - 1) * SIZE, (game->height + 0.4) * SIZE, 0xFFFFFF, "YOU WON");
-	}
-	else if (game->map_matrix[game->player.y][game->player.x] == 'X')
-	{
-		printf("YOU LOST\n");
-		mlx_string_put(game->mlx_connection, game->mlx_window, (game->width - 1) * SIZE, (game->height + 0.4) * SIZE, 0xFFFFFF, "YOU LOST");
+		if (key == XK_s && game->map_matrix[pos_y + 1][pos_x] != '1')
+			execute_movement(game, key);
+		else if (key == XK_w && game->map_matrix[pos_y - 1][pos_x] != '1')
+			execute_movement(game, key);
+		else if (key == XK_d && game->map_matrix[pos_y][pos_x + 1] != '1')
+			execute_movement(game, key);
+		else if (key == XK_a && game->map_matrix[pos_y][pos_x - 1] != '1')
+			execute_movement(game, key);
+		if (game->map_matrix[game->player.y][game->player.x] == 'C')
+		{
+			game->collectible--;
+			if (game->collectible == 0)
+				game->exit_open = true;
+			game->map_matrix[game->player.y][game->player.x] = '0';
+		}
+		else if (game->map_matrix[game->player.y][game->player.x] == 'E' && game->collectible == 0)
+		{
+			printf("YOU WON\n");
+			game->game_over = true;
+			mlx_string_put(game->mlx_connection, game->mlx_window, (game->width - 1) * SIZE, (game->height + 0.4) * SIZE, 0xFFFFFF, "YOU WON");
+		}
+		else if (game->map_matrix[game->player.y][game->player.x] == 'X')
+		{
+			printf("YOU LOST\n");
+			game->game_over = true;
+			mlx_string_put(game->mlx_connection, game->mlx_window, (game->width - 1) * SIZE, (game->height + 0.4) * SIZE, 0xFFFFFF, "YOU LOST");
+		}
 	}
      return (0);
 }

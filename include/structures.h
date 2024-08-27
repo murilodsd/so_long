@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 23:04:47 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/08/26 15:48:52 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/27 09:29:49 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,6 @@ typedef struct s_player {
 	size_t	y;
 	char	view_to;
 }	t_player;
-
-typedef struct s_exit {
-	bool	is_open;
-	size_t	x;
-	size_t	y;
-}	t_exit;
 
 typedef struct s_sprite {
 	int			px_w;
@@ -54,7 +48,6 @@ typedef struct s_game
 	void	*img_collectible;
 	void	*img_enemy;
 	t_player	player;
-	t_exit	exit;
 	char	*map_file_name;
 	char	**map_matrix;
 	int	map_fd;
@@ -63,6 +56,8 @@ typedef struct s_game
 	int	size;
 	size_t 	width;
 	size_t 	height;
+	bool	exit_open;
+	bool	game_over;
 	}	t_game;
 
 #endif

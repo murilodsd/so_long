@@ -63,7 +63,8 @@ void	init_game_variables(t_game *game, char **argv)
 	game->height = 0;
 	game->collectible = 0;
 	game->count_movements = 0;
-	game->exit.is_open = false;
+	game->game_over = false;
+	game->exit_open = false;
 	game->size = SIZE;
 	game->mlx_connection = NULL;
 	game->mlx_window = NULL;
