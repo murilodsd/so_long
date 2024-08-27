@@ -42,7 +42,7 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 
 clean:
 	make clean -C lib/libft
-	$(RM) $(OBJS_SERVER) $(OBJS_CLIENT) $(OBJS_BONUS)
+	$(RM) $(OBJS) $(OBJS_BONUS)
 
 fclean: clean
 	make fclean -C lib/libft
