@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:52:03 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/05/08 12:53:16 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:52:10 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ft_itoa(int n)
 	}
 	decplaces = ft_countdec(n_long);
 	size = size + decplaces;
-	p = (char *)malloc(sizeof(char) * (size + 1));
+	p = (char *)ft_calloc(size + 1, sizeof(char));
 	if (!p)
 		return (NULL);
 	if (size != decplaces)
