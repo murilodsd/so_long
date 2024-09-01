@@ -10,13 +10,14 @@ ft_bzero.c  ft_memcmp.c ft_strchr.c ft_strnstr.c \
 ft_calloc.c ft_realloc.c ft_memcpy.c ft_strdup.c ft_strrchr.c \
 ft_isalnum.c ft_memmove.c ft_striteri.c ft_strtrim.c \
 ft_isalpha.c ft_memset.c ft_strjoin.c ft_substr.c \
-ft_isascii.c ft_putchar_fd.c ft_strlcat.c \
+ft_isascii.c ft_putchar_fd.c ft_strlcat.c ft_flood_fill.c\
+ft_mtxdup.c ft_mtxlen.c\
 ft_isdigit.c ft_putendl_fd.c ft_strlcpy.c ft_strcpy.c ft_tolower.c \
 ft_isprint.c ft_putnbr_fd.c ft_strlen.c ft_toupper.c ft_countdec.c \
 ft_lstadd_front.c ft_lstadd_back.c \
 ft_lstclear.c ft_lstdelone.c ft_lstiter.c \
 ft_lstlast.c ft_lstmap.c ft_lstnew.c \
-ft_lstsize.c ft_free_buffer.c ft_save_pointer.c ft_free_exit_error.c \
+ft_lstsize.c ft_free_ptr_buffer.c ft_save_pointer.c ft_free_exit_error.c \
 ft_check_mem_alloc.c ft_free_matrix.c
 SRCS_PRINTF=ft_printf.c ft_print_p_fd.c \
 ft_printnbr_fd.c ft_print_s_c_fd.c ft_printnbr_base_fd.c

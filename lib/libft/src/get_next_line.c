@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:37:07 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/08/23 20:52:51 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/30 10:35:28 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 /**
  * @brief Frees memory allocated for a buffer and a pointer.
  *
- * This function frees the memory allocated for a buffer and a pointer. If the buffer is NULL,
- * it calls the ft_free_buffer function to free all the pointer in a the buffer.
+ * This function frees the memory allocated for a buffer and a pointer.
+ * If the buffer is NULL,it calls the ft_free_ptr_buffer function
+ * to free all the pointer in a the buffer.
  * Otherwise, it frees just one pointer in the buffer and sets it to NULL. 
  * It also frees the pointer ptr if it is not NULL.
  * Set the global variable errno
@@ -35,7 +36,7 @@ static void	*ft_free_memmory(char **buffer, char *ptr, int erro_num)
 		*buffer = NULL;
 	}
 	else
-		ft_free_buffer(buffer, MAX_FD);
+		ft_free_ptr_buffer(buffer, MAX_FD);
 	if (ptr)
 		free(ptr);
 	return (NULL);
@@ -91,7 +92,7 @@ static int	check_buffer_and_fd(char **buffer, int fd)
 {
 	if (fd == -1)
 	{
-		ft_free_buffer(buffer, MAX_FD);	
+		ft_free_ptr_buffer(buffer, MAX_FD);
 		return (0);
 	}
 	if (fd < -1 || fd > MAX_FD || BUFFER_SIZE <= 0)
@@ -104,7 +105,7 @@ static int	check_buffer_and_fd(char **buffer, int fd)
 	if (!buffer[fd])
 	{
 		errno = ENOMEM;
-		ft_free_buffer(buffer, MAX_FD);
+		ft_free_ptr_buffer(buffer, MAX_FD);
 		return (0);
 	}
 	return (1);

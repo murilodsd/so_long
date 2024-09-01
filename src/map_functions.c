@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 16:03:51 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/08/27 19:17:19 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/30 11:57:53 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	get_map_info(t_game *game)
 	concat_lines = ft_calloc(1,sizeof(char));
 	check_mem(game, &(game->mem_allocation.ptr_mem_list), concat_lines, "ft_calloc failed");
 	line = get_next_line(game->map_fd);
-	//CONFERIR AS CONDICOES DO NULL; TEM QUE TER CHECK NO CASO DE SER NULL? 
 	if (line == NULL && errno > 0)
 		destroy_free_exit_error(game, "get_next_line failed");
 	else if (line == NULL && errno == 0)
@@ -109,7 +108,50 @@ void	check_map(t_game *game)
 		ft_printf(1,"%c",'\n');
 		y++;
 	}
+	check_path(game);
 }
+
+bool	check_path_components(t_game game, char** map, t_point size, t_point point)
+{
+	static size_t	count_collectibles;
+	static size_t	count_exit;
+	
+	if (point.x >= size.x || point.x < 0 || point.y >= size.y || point.y < 0)
+		return (FALSE);
+	if (map[point.y][point.x] == 'X' || map[point.y][point.x] == '1' )
+		return (FALSE);
+	if (map[point.y][point.x] == 'C')
+	{
+		ft_printf(1, "achamos um collectible em y = %d e x = %d", point.y, point.x);
+		count_collectibles++;
+	}
+	if (map[point.y][point.x] == 'E')
+	{
+		ft_printf(1, "achamos a saida em y = %d e x = %d", point.y, point.x);
+		count_exit++;
+	}
+	map[point.y][point.x] = '1';	
+	check_path_components(game, map, size, (t_point){point.x + 1, point.y});
+	check_path_components(game, map, size, (t_point){point.x -1, point.y});
+	check_path_components(game, map, size, (t_point){point.x, point.y + 1});
+	check_path_components(game, map, size, (t_point){point.x, point.y - 1});
+	if (count_collectibles == game.collectible && count_exit == 1)
+		return (TRUE);
+	return (FALSE);
+}
+
+void	check_path(t_game *game)
+{
+	char	**map_copy;
+	
+	map_copy = ft_mtxdup(game->map_matrix);
+	check_mem(game, &(game->mem_allocation.matrix_mem_list), \
+		map_copy, "ft_mtxdup failed");
+	if (!check_path_components(*game, map_copy, (t_point){game->width, game->height}, \
+		(t_point){game->player.x, game->player.y}))
+		destroy_free_exit_error(game, "Invalid path: No path to collectibles or exit!");
+}
+
 
 /* int main(int argc, char *argv[])
 {

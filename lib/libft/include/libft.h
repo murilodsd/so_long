@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:52:36 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/08/24 15:02:46 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/30 10:29:37 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,23 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include <stddef.h>
 # include <stdarg.h>
 # include <errno.h>
 # include <string.h>
 # include <fcntl.h>
-
-# ifndef __bool_true_false_are_defined
-#  define __bool_true_false_are_defined 1
-typedef enum { false, true } bool;
-# endif
+# include <stdbool.h>
 
 typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
 }	t_list;
+
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}	t_point;
 
 //ESTRUTURA PARA AS TAGS DO PRINTF
 typedef struct tag_parameter
@@ -60,16 +61,16 @@ typedef struct tag_parameter
 	char	tag;
 }	t_params;
 
-//ESTRUTURA PARA INFORMAR TIPO DE DADO EM FUNCAO QUE RECEBE *VOID
+/* //ESTRUTURA PARA INFORMAR TIPO DE DADO EM FUNCAO QUE RECEBE *VOID
 typedef enum {
 	TYPE_VOID,
 	TYPE_INT,
 	TYPE_CHAR,
 	TYPE_POINTER
-}	t_data_type;
-
+}	t_data_type; */
 //ESTRUTURA PARA INFORMAR TIPO DE DADO EM FUNCAO QUE RECEBE *VOID
-typedef struct s_mem_allocation {
+typedef struct s_mem_allocation
+{
 	t_list	*ptr_mem_list;
 	t_list	*matrix_mem_list;
 }	t_mem_allocation;
@@ -126,6 +127,9 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_toupper(int c);
 int		ft_tolower(int c);
+size_t	ft_mtxlen(char **matrix);
+char	**ft_mtxdup(char **matrix);
+void	flood_fill(char **tab, t_point size, t_point begin);
 //--------------------------------------------------------//
 //---------------------FT_PRINTF--------------------------//
 //--------------------------------------------------------//
@@ -144,8 +148,10 @@ char	*get_next_line(int fd);
 //--------------CHECK_ERROR AND FREE MEMORY---------------//
 //--------------------------------------------------------//
 void	ft_free_exit_error(t_mem_allocation *mem_allocation, char *error_msg);
-void	ft_save_pointer(t_mem_allocation *mem_allocation, t_list **ptr_or_matrix_list, void *ptr);
-void	ft_check_mem_alloc(t_mem_allocation *mem_allocation, t_list **ptr_or_matrix_list, void *ptr, char *error_msg);
+void	ft_save_pointer(t_mem_allocation *mem_allocation, \
+	t_list **ptr_or_matrix_list, void *ptr);
+void	ft_check_mem_alloc(t_mem_allocation *mem_allocation, \
+	t_list **ptr_or_matrix_list, void *ptr, char *error_msg);
 void	ft_free_matrix(void *matrix_void);
-void	ft_free_buffer(char **buffer, int size);
+void	ft_free_ptr_buffer(char **buffer, int size);
 #endif

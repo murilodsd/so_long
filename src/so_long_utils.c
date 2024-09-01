@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:03:57 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/08/26 17:06:57 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/09/01 17:36:49 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void 	if_not_null_destroy(t_game *game, void *img_ptr)
 {
 	if (img_ptr != NULL)
-		mlx_destroy_image(game->mlx_connection, img_ptr);
+		mlx_destroy_image(game->mlx, img_ptr);
 }
 
 void	call_destroy_functions(t_game *game)
@@ -28,15 +28,17 @@ void	call_destroy_functions(t_game *game)
 	if_not_null_destroy(game, game->img_player_u);
 	if_not_null_destroy(game, game->img_player_d);
 	if_not_null_destroy(game, game->img_player_exit);
-	if_not_null_destroy(game, game->img_dead);
-	if_not_null_destroy(game, game->img_enemy);
+	if_not_null_destroy(game, game->img_dead1);
+	if_not_null_destroy(game, game->img_dead2);
+	if_not_null_destroy(game, game->img_enemy1);
+	if_not_null_destroy(game, game->img_enemy2);
 	if_not_null_destroy(game, game->img_collectible);
-	if (game->mlx_window != NULL)
-		mlx_destroy_window(game->mlx_connection, game->mlx_window);
-	if (game->mlx_connection != NULL)
+	if (game->window != NULL)
+		mlx_destroy_window(game->mlx, game->window);
+	if (game->mlx != NULL)
 	{
-		mlx_destroy_display(game->mlx_connection);
-		free(game->mlx_connection);
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
 	}
 	if (game->map_fd != -1000)
 		close(game->map_fd);
