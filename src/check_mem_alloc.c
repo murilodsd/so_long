@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mem_alloc.c                                        :+:      :+:    :+:   */
+/*   check_mem_alloc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 21:18:53 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/08/24 10:36:08 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/09/02 20:42:53 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/so_long.h"
 
-#include <stdio.h>
+void	check_mem(t_game *game, t_list **ptr_or_matrix_list, \
+	void *ptr, char *error_msg)
+{
+	if (!ptr)
+		destroy_free_exit_error(game, error_msg);
+	else
+		ft_save_pointer(&(game->mem_allocation), ptr_or_matrix_list, ptr);
+}
+/* 
 static void ft_printstringlst(t_list *head)
 {
 	t_list *temp = head;
@@ -42,18 +50,23 @@ int main(int argc, char const *argv[])
 	mem_allocation.matrix_mem_list = NULL;
 	mem_allocation.ptr_mem_list = NULL;
 	matrix = ft_split("texto.texto2.texto3",'.');
-	ft_check_mem_alloc(&mem_allocation, &(mem_allocation.matrix_mem_list),matrix,"ft_split failed");
+	ft_check_mem_alloc(&mem_allocation, &(mem_allocation.matrix_mem_list),\
+	matrix,"ft_split failed");
 	matrix = ft_split("texto.texto2.texto3",'.');
-	ft_check_mem_alloc(&mem_allocation, &(mem_allocation.matrix_mem_list),matrix,"ft_split failed");
+	ft_check_mem_alloc(&mem_allocation, &(mem_allocation.matrix_mem_list),\
+	matrix,"ft_split failed");
 	(void)argc;
 	(void)argv;
 
 	string1 = ft_strdup("string1");
-	ft_check_mem_alloc(&mem_allocation,&(mem_allocation.ptr_mem_list),string1,"erro");
+	ft_check_mem_alloc(&mem_allocation,&(mem_allocation.ptr_mem_list),\
+	string1,"erro");
 	string2 = ft_strdup("string2");
-	ft_check_mem_alloc(&mem_allocation,&(mem_allocation.ptr_mem_list),string2,"erro");
+	ft_check_mem_alloc(&mem_allocation,&(mem_allocation.ptr_mem_list),\
+	string2,"erro");
 	string3 = ft_strdup("string3");
-	ft_check_mem_alloc(&mem_allocation,&(mem_allocation.ptr_mem_list),string3,"erro");
+	ft_check_mem_alloc(&mem_allocation,&(mem_allocation.ptr_mem_list),\
+	string3,"erro");
 	
 	ft_printstringlst((mem_allocation.ptr_mem_list));
 	// ft_printf(1,"%s\n",matrix[0]);
@@ -67,3 +80,4 @@ int main(int argc, char const *argv[])
 	//ft_printf(1, "matrix está apontando para %p", matrix);
 	return 0;
 }
+ */

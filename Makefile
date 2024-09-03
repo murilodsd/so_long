@@ -3,7 +3,9 @@ CCFLAGS=-Wall -Wextra -Werror -g
 NAME=so_long
 #NAME_BONUS=
 SRC_PATH=src/
-SRCS_NAMES=so_long.c map_functions.c keyboard_events.c so_long_utils.c
+SRCS_NAMES=so_long.c map_functions.c keyboard_events.c \
+so_long_utils.c animation_functions.c check_map_functions.c \
+close_game.c check_mem_alloc.c
 SRCS=$(addprefix $(SRC_PATH), $(SRCS_NAMES))
 #SRCS_NAMES_BONUS= 
 #SRCS_BONUS=$(addprefix $(SRC_PATH), $(SRCS_NAMES))

@@ -6,19 +6,13 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 23:04:47 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/09/01 17:36:49 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/09/02 20:33:41 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 # include "./so_long.h"
-
-typedef struct s_player
-{
-	size_t	x;
-	size_t	y;
-}	t_player;
 
 typedef struct s_game
 {
@@ -38,7 +32,7 @@ typedef struct s_game
 	void				*img_collectible;
 	void				*img_enemy1;
 	void				*img_enemy2;
-	t_player			player;
+	t_point				player;
 	char				*map_file_name;
 	char				**map_matrix;
 	int					map_fd;

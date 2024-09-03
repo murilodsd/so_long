@@ -1,4 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/02 21:17:12 by mde-souz          #+#    #+#             */
+/*   Updated: 2024/09/02 21:26:03 by mde-souz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/so_long.h"
+
+void	*create_img(t_game * game, char *filename)
+{
+	return (mlx_xpm_file_to_image(game->mlx, filename, \
+		&game->size, &game->size));
+}
 
 void	init_images(t_game *game)
 {
@@ -34,17 +52,17 @@ void	init_map(t_game *game)
 		x = 0;
 		while (x < game->width)
 		{
-			if (game->map_matrix[y][x] == '1')
+			if (game->map_matrix[y][x] == WALL)
 				mlx_put_image_to_window(game->mlx, game->window, game->img_tree, x * SIZE, y * SIZE);
-			else if (game->map_matrix[y][x] == '0')
+			else if (game->map_matrix[y][x] == FLOOR)
 				mlx_put_image_to_window(game->mlx, game->window, game->img_grass, x * SIZE, y * SIZE);
-			else if (game->map_matrix[y][x] == 'E')
+			else if (game->map_matrix[y][x] == EXIT)
 				mlx_put_image_to_window(game->mlx, game->window, game->img_exit, x * SIZE, y * SIZE);
-			else if (game->map_matrix[y][x] == 'C')
+			else if (game->map_matrix[y][x] == COLLECTIBLE)
 				mlx_put_image_to_window(game->mlx, game->window, game->img_collectible, x * SIZE, y * SIZE);
-			else if (game->map_matrix[y][x] == 'P')
+			else if (game->map_matrix[y][x] == START_POSITION)
 				mlx_put_image_to_window(game->mlx, game->window, game->img_player_d, x * SIZE, y * SIZE);
-			else if (game->map_matrix[y][x] == 'X')
+			else if (game->map_matrix[y][x] == ENEMY)
 				mlx_put_image_to_window(game->mlx, game->window, game->img_enemy1, x * SIZE, y * SIZE);
 			x++;
 		}
@@ -83,7 +101,7 @@ void	init_game_variables(t_game *game, char **argv)
 	game->map_fd = -1000;
 }
 
-void	init_game(t_game *game, char **argv)
+static void	init_game(t_game *game, char **argv)
 {
 	init_game_variables(game, argv);
 	ft_printf(1,"%s\n",game->map_file_name);
@@ -100,57 +118,6 @@ void	init_game(t_game *game, char **argv)
 	game->window = mlx_new_window(game->mlx, SIZE * game->width, SIZE * (game->height + 0.5), "Hello world!");
 	if (game->window == NULL)
 		destroy_free_exit_error(game, "mlx_new_window() failed");
-}
-void	change_enemy_img(t_game *game, int *counter, size_t pos_y, size_t pos_x)
-{
-	int	is_player_position_too;
-
-	is_player_position_too = game->player.x == pos_x && game->player.y == pos_y;
-	
-	if (*counter == 100)
-		if (!is_player_position_too)
-		mlx_put_image_to_window(game->mlx, game->window, \
-			game->img_enemy2, pos_x * SIZE, pos_y * SIZE);
-		else
-		mlx_put_image_to_window(game->mlx, game->window, \
-			game->img_dead2, pos_x * SIZE, pos_y * SIZE);
-	else if (*counter == 200)
-		{
-			if (!is_player_position_too)
-			mlx_put_image_to_window(game->mlx, game->window, \
-				game->img_enemy1, pos_x * SIZE, pos_y * SIZE);
-			else
-			mlx_put_image_to_window(game->mlx, game->window, \
-				game->img_dead1, pos_x * SIZE, pos_y * SIZE);
-		}
-}
-
-int loop_hook_animation(void *game)
-{
-	static int counter;
-	size_t	x;
-	size_t	y;
-
-	counter++;
-	if (counter % 100 == 0)
-	{	
-		y = 0;
-		while (y < ((t_game *)game)->height)
-		{
-			x = 0;
-			while (x < ((t_game *)game)->width)
-			{
-				if (((t_game *)game)->map_matrix[y][x] == 'X')
-					change_enemy_img(((t_game *)game), &counter, y, x);
-				x++;
-			}
-			y++;
-		}
-	}
-	if (counter % 200 == 0)
-		counter = 0;
-	usleep(5000);
-	return (0);
 }
 
 int main(int argc, char **argv)
@@ -173,7 +140,7 @@ int main(int argc, char **argv)
 	init_map(&game);
 	mlx_string_put(game.mlx, game.window, 10, (game.height + 0.4) * SIZE, 0xFFFFFF, "Movements: 0");
 	printf("criou janela\n");
-	mlx_key_hook(game.window, handle_input, &game);
+	mlx_key_hook(game.window, handle_key_input, &game);
 	mlx_hook(game.window, 17, (1L << 2), close_game, &game);
 	mlx_loop_hook(game.mlx, loop_hook_animation, &game);
 	mlx_loop(game.mlx);
