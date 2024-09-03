@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 23:04:47 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/09/02 20:33:41 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/09/03 12:12:40 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef struct s_game
 	void				*img_enemy1;
 	void				*img_enemy2;
 	t_point				player;
-	char				*map_file_name;
 	char				**map_matrix;
 	int					map_fd;
 	size_t				collectible;

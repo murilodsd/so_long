@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:10:50 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/09/02 11:43:21 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/09/03 10:19:45 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,23 +93,23 @@ static void	execute_movement(t_game *game, int key)
 
 	map = game->map_matrix;
 	if (map[game->player.y][game->player.x] == EXIT)
-		put_image(game, game->img_exit);
+		put_image_player_position(game, game->img_exit);
 	else
-		put_image(game, game->img_grass);
+		put_image_player_position(game, game->img_grass);
 	game->player.y = game->player.y + (key == XK_s) - (key == XK_w);
 	game->player.x = game->player.x + (key == XK_d) - (key == XK_a);
 	if (map[game->player.y][game->player.x] == EXIT)
-		put_image(game, game->img_player_exit);
+		put_image_player_position(game, game->img_player_exit);
 	else if (map[game->player.y][game->player.x] == ENEMY)
-		put_image(game, game->img_dead1);
+		put_image_player_position(game, game->img_dead1);
 	else if (key == XK_d)
-		put_image(game, game->img_player_r);
+		put_image_player_position(game, game->img_player_r);
 	else if (key == XK_a)
-		put_image(game, game->img_player_l);
+		put_image_player_position(game, game->img_player_l);
 	else if (key == XK_w)
-		put_image(game, game->img_player_u);
+		put_image_player_position(game, game->img_player_u);
 	else if (key == XK_s)
-		put_image(game, game->img_player_d);
+		put_image_player_position(game, game->img_player_d);
 	handle_count_movements(game);
 	handle_movement(game);
 }

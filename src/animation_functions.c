@@ -6,35 +6,35 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:20:46 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/09/02 20:36:05 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/09/03 14:23:00 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
 static void	change_enemy_img(t_game *game, int *counter, \
-	int pos_y, int pos_x)
+	int y, int x)
 {
 	int	is_player_position_too;
 
-	is_player_position_too = game->player.x == pos_x && game->player.y == pos_y;
+	is_player_position_too = game->player.x == x && game->player.y == y;
 	if (*counter == 100)
 	{
 		if (!is_player_position_too)
 			mlx_put_image_to_window(game->mlx, game->window, \
-				game->img_enemy2, pos_x * SIZE, pos_y * SIZE);
+				game->img_enemy2, x * SIZE, y * SIZE);
 		else
 			mlx_put_image_to_window(game->mlx, game->window, \
-				game->img_dead2, pos_x * SIZE, pos_y * SIZE);
+				game->img_dead2, x * SIZE, y * SIZE);
 	}
 	else if (*counter == 200)
 	{
 		if (!is_player_position_too)
 			mlx_put_image_to_window(game->mlx, game->window, \
-				game->img_enemy1, pos_x * SIZE, pos_y * SIZE);
+				game->img_enemy1, x * SIZE, y * SIZE);
 		else
 			mlx_put_image_to_window(game->mlx, game->window, \
-				game->img_dead1, pos_x * SIZE, pos_y * SIZE);
+				game->img_dead1, x * SIZE, y * SIZE);
 	}
 }
 
@@ -53,7 +53,7 @@ int	loop_hook_animation(void *game)
 			x = 0;
 			while (x < ((t_game *)game)->width)
 			{
-				if (((t_game *)game)->map_matrix[y][x] == 'X')
+				if (((t_game *)game)->map_matrix[y][x] == ENEMY)
 					change_enemy_img(((t_game *)game), &counter, y, x);
 				x++;
 			}

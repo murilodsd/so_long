@@ -6,39 +6,36 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 21:17:12 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/09/02 21:26:03 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/09/03 12:10:33 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void	*create_img(t_game * game, char *filename)
-{
-	return (mlx_xpm_file_to_image(game->mlx, filename, \
-		&game->size, &game->size));
-}
-
 void	init_images(t_game *game)
 {
-	game->img_grass = mlx_xpm_file_to_image(game->mlx, "./images/grass.xpm", &game->size, &game->size);
-	game->img_tree = mlx_xpm_file_to_image(game->mlx, "./images/tree.xpm", &game->size, &game->size);
-	game->img_exit = mlx_xpm_file_to_image(game->mlx, "./images/exit.xpm", &game->size, &game->size);
-	game->img_player_r = mlx_xpm_file_to_image(game->mlx, "./images/player_r.xpm", &game->size, &game->size);
-	game->img_player_l = mlx_xpm_file_to_image(game->mlx, "./images/player_l.xpm", &game->size, &game->size);
-	game->img_player_d = mlx_xpm_file_to_image(game->mlx, "./images/player_d.xpm", &game->size, &game->size);
-	game->img_player_u = mlx_xpm_file_to_image(game->mlx, "./images/player_u.xpm", &game->size, &game->size);
-	game->img_player_exit = mlx_xpm_file_to_image(game->mlx, "./images/player_exit.xpm", &game->size, &game->size);
-	game->img_dead1 = mlx_xpm_file_to_image(game->mlx, "./images/dead1.xpm", &game->size, &game->size);
-	game->img_dead2 = mlx_xpm_file_to_image(game->mlx, "./images/dead2.xpm", &game->size, &game->size);
-	game->img_collectible = mlx_xpm_file_to_image(game->mlx, "./images/collectible.xpm", &game->size, &game->size);
-	game->img_enemy1= mlx_xpm_file_to_image(game->mlx, "./images/bat1.xpm", &game->size, &game->size);
-	game->img_enemy2= mlx_xpm_file_to_image(game->mlx, "./images/bat2.xpm", &game->size, &game->size);
-	if (game->img_player_l == NULL || game->img_player_r == NULL || game->img_grass == NULL
-		|| game->img_tree == NULL || game->img_exit == NULL || game->img_collectible == NULL
-		|| game->img_player_d == NULL || game->img_player_u == NULL
-		|| game->img_dead1 == NULL || game->img_dead2 == NULL || game->img_enemy1 == NULL
-		|| game->img_enemy2 == NULL || game->img_player_exit == NULL)
-		destroy_free_exit_error(game, "mlx_xpm_file_to_image() in init_images failed");
+	game->img_grass = xpm_to_image(game, "./images/grass.xpm");
+	game->img_tree = xpm_to_image(game, "./images/tree.xpm");
+	game->img_exit = xpm_to_image(game, "./images/exit.xpm");
+	game->img_player_r = xpm_to_image(game, "./images/player_r.xpm");
+	game->img_player_l = xpm_to_image(game, "./images/player_l.xpm");
+	game->img_player_d = xpm_to_image(game, "./images/player_d.xpm");
+	game->img_player_u = xpm_to_image(game, "./images/player_u.xpm");
+	game->img_player_exit = xpm_to_image(game, "./images/player_exit.xpm");
+	game->img_dead1 = xpm_to_image(game, "./images/dead1.xpm");
+	game->img_dead2 = xpm_to_image(game, "./images/dead2.xpm");
+	game->img_collectible = xpm_to_image(game, "./images/collectible.xpm");
+	game->img_enemy1 = xpm_to_image(game, "./images/bat1.xpm");
+	game->img_enemy2 = xpm_to_image(game, "./images/bat2.xpm");
+	if (game->img_player_l == NULL || game->img_player_r == NULL
+		|| game->img_grass == NULL || game->img_tree == NULL
+		|| game->img_collectible == NULL || game->img_player_d == NULL
+		|| game->img_player_u == NULL || game->img_dead1 == NULL
+		|| game->img_dead2 == NULL || game->img_enemy1 == NULL
+		|| game->img_enemy2 == NULL || game->img_player_exit == NULL
+		|| game->img_exit == NULL)
+		destroy_free_exit_error(game, \
+			"mlx_xpm_file_to_image() in init_images failed");
 }
 
 void	init_map(t_game *game)
@@ -53,36 +50,34 @@ void	init_map(t_game *game)
 		while (x < game->width)
 		{
 			if (game->map_matrix[y][x] == WALL)
-				mlx_put_image_to_window(game->mlx, game->window, game->img_tree, x * SIZE, y * SIZE);
+				put_image(game, game->img_tree, x, y);
 			else if (game->map_matrix[y][x] == FLOOR)
-				mlx_put_image_to_window(game->mlx, game->window, game->img_grass, x * SIZE, y * SIZE);
+				put_image(game, game->img_grass, x, y);
 			else if (game->map_matrix[y][x] == EXIT)
-				mlx_put_image_to_window(game->mlx, game->window, game->img_exit, x * SIZE, y * SIZE);
+				put_image(game, game->img_exit, x, y);
 			else if (game->map_matrix[y][x] == COLLECTIBLE)
-				mlx_put_image_to_window(game->mlx, game->window, game->img_collectible, x * SIZE, y * SIZE);
-			else if (game->map_matrix[y][x] == START_POSITION)
-				mlx_put_image_to_window(game->mlx, game->window, game->img_player_d, x * SIZE, y * SIZE);
+				put_image(game, game->img_collectible, x, y);
+			else if (game->map_matrix[y][x] == STARTING_POSITION)
+				put_image(game, game->img_player_d, x, y);
 			else if (game->map_matrix[y][x] == ENEMY)
-				mlx_put_image_to_window(game->mlx, game->window, game->img_enemy1, x * SIZE, y * SIZE);
+				put_image(game, game->img_enemy1, x, y);
 			x++;
 		}
 		y++;
 	}
 }
 
-void	init_game_variables(t_game *game, char **argv)
+void	init_game_variables(t_game *game)
 {
 	errno = 0;
 	game->mem_allocation.ptr_mem_list = NULL;
-	game->mem_allocation.matrix_mem_list= NULL;
-	game->map_file_name = argv[1];
-	game->width = 0;
+	game->mem_allocation.matrix_mem_list = NULL;
 	game->height = 0;
+	game->width = 0;
 	game->collectible = 0;
 	game->count_movements = 0;
 	game->game_over = false;
 	game->exit_open = false;
-	game->size = SIZE;
 	game->mlx = NULL;
 	game->window = NULL;
 	game->img_grass = NULL;
@@ -103,43 +98,33 @@ void	init_game_variables(t_game *game, char **argv)
 
 static void	init_game(t_game *game, char **argv)
 {
-	init_game_variables(game, argv);
-	ft_printf(1,"%s\n",game->map_file_name);
-	ft_printf(1,"game variables\n");
-	ft_printf(1,"errno = %d\n", errno);
-	get_map_fd(game);
-	ft_printf(1,"map_fd\n");
-	ft_printf(1,"errno = %d\n", errno);
-	ft_printf(1,"%d\n",game->map_fd);
+	init_game_variables(game);
+	get_map_fd(game, argv);
 	get_map_info(game);
 	game->mlx = mlx_init();
 	if (game->mlx == NULL)
 		destroy_free_exit_error(game, "mlx_init() failed");
-	game->window = mlx_new_window(game->mlx, SIZE * game->width, SIZE * (game->height + 0.5), "Hello world!");
+	game->window = mlx_new_window(game->mlx, SIZE * game->width, \
+		SIZE * (game->height + 0.5), "Hello world!");
 	if (game->window == NULL)
 		destroy_free_exit_error(game, "mlx_new_window() failed");
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_game	game;
 
 	if (argc != 2)
 	{
-		printf("The program need one argument (map) and just that!");
+		ft_printf(2, "The program need one argument (map) and just that!");
 		return (1);
 	}
-	ft_printf(1,"comecou\n");
-	ft_printf(1,"errno = %d\n", errno);
 	init_game(&game, argv);
 	check_map(&game);
-	ft_printf(1,"Checkmap\n");
-	ft_printf(1,"errno = %d\n", errno);
-	printf("Conectou\n");
 	init_images(&game);
 	init_map(&game);
-	mlx_string_put(game.mlx, game.window, 10, (game.height + 0.4) * SIZE, 0xFFFFFF, "Movements: 0");
-	printf("criou janela\n");
+	mlx_string_put(game.mlx, game.window, 10, (game.height + 0.4) * SIZE, \
+		0xFFFFFF, "Movements: 0");
 	mlx_key_hook(game.window, handle_key_input, &game);
 	mlx_hook(game.window, 17, (1L << 2), close_game, &game);
 	mlx_loop_hook(game.mlx, loop_hook_animation, &game);

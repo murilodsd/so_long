@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 16:03:51 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/09/02 20:40:22 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/09/03 12:13:37 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	check_map_components(t_game *game, char component, \
 	static int	count_player;
 	static int	count_exit;
 
-	if (component == START_POSITION)
+	if (component == STARTING_POSITION)
 	{
 		count_player++;
 		if (count_player > 1)
@@ -121,7 +121,7 @@ void	check_map(t_game *game)
 	ft_printf(1,"comecou\n");
 	init_game_variables(&game, argv);
 	ft_printf(1,"%s\n",game.map_file_name);
-	get_map_fd(&game);
+	get_map_fd(&game, argv);
 	get_map_info(&game);
 	check_map(&game);
 	if (game.mem_allocation.ptr_mem_list != NULL)	

@@ -6,15 +6,18 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 16:03:51 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/09/02 21:16:23 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/09/03 12:14:28 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void	get_map_fd(t_game *game)
+void	get_map_fd(t_game *game, char **argv)
 {
-	game->map_fd = open(game->map_file_name, O_RDONLY);
+	char	*map_file_name;
+
+	map_file_name = argv[1];
+	game->map_fd = open(map_file_name, O_RDONLY);
 	if (game->map_fd == -1)
 		destroy_free_exit_error(game, "Error opening file");
 }
@@ -61,7 +64,7 @@ void	get_map_info(t_game *game)
 	ft_printf(1,"comecou\n");
 	init_game_variables(&game, argv);
 	ft_printf(1,"%s\n",game.map_file_name);
-	get_map_fd(&game);
+	get_map_fd(&game, argv);
 	get_map_info(&game);
 	check_map(&game);
 	if (game.mem_allocation.ptr_mem_list != NULL)	

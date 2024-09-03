@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/09/03 11:22:28 by mde-souz          #+#    #+#              #
+#    Updated: 2024/09/03 14:26:35 by mde-souz         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 CC=cc
 CCFLAGS=-Wall -Wextra -Werror -g
 NAME=so_long
@@ -21,7 +33,6 @@ LIBS_FLAGS= -L$(LIB_PATH) $(patsubst lib%, -l%, $(LIBS))
 LIB_STATIC = $(addprefix $(LIB_PATH) , $(INCLUDE_PATH))
 INCLUDE_PATH=./include/ ./lib/*/include/
 INCLUDE_FLAG=$(addprefix -I , $(INCLUDE_PATH))
-
 RM=rm -f
 
 all: libs $(NAME)
