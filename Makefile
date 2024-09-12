@@ -6,14 +6,14 @@
 #    By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 11:22:28 by mde-souz          #+#    #+#              #
-#    Updated: 2024/09/03 14:26:35 by mde-souz         ###   ########.fr        #
+#    Updated: 2024/09/12 17:51:58 by mde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=cc
 CCFLAGS=-Wall -Wextra -Werror -g
 NAME=so_long
-#NAME_BONUS=
+NAME_BONUS=so_long_bonus
 SRC_PATH=src/
 SRCS_NAMES=so_long.c map_functions.c keyboard_events.c \
 so_long_utils.c animation_functions.c check_map_functions.c \
@@ -43,11 +43,10 @@ $(NAME): $(OBJS) $(LIB_STATIC)
 libs:
 	make all -C lib/libft
 
-bonus: $(NAME_BONUS)
+bonus: libs $(NAME_BONUS)
 
-$(NAME_BONUS): $(OBJS_BONUS)
-	make all -C lib/libft
-	$(CC) $(CCFLAGS) $(OBJS_BONUS) $(INCLUDE_FLAG) $(LIBS_FLAGS) -o $(NAME_BONUS)
+$(NAME_BONUS): $(OBJS)
+	$(CC) $(CCFLAGS) $(OBJS) $(INCLUDE_FLAG) $(LIBS_FLAGS) -o $(NAME_BONUS)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	mkdir -p $(OBJ_PATH)

@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 16:03:51 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/09/03 12:14:28 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/09/12 17:59:47 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@ void	check_get_next_line_error(t_game *game, char *line)
 {
 	if (line == NULL && errno > 0)
 		destroy_free_exit_error(game, "get_next_line failed");
+	else if (line != NULL)
+	{
+		if (*line == '\n')
+		{
+			free(line);
+			destroy_free_exit_error(game, "Map with empty line");
+		}
+	}
 }
 
 void	get_map_info(t_game *game)
