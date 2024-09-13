@@ -6,7 +6,7 @@
 #    By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 11:22:28 by mde-souz          #+#    #+#              #
-#    Updated: 2024/09/12 17:51:58 by mde-souz         ###   ########.fr        #
+#    Updated: 2024/09/13 18:17:19 by mde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,15 +17,21 @@ NAME_BONUS=so_long_bonus
 SRC_PATH=src/
 SRCS_NAMES=so_long.c map_functions.c keyboard_events.c \
 so_long_utils.c animation_functions.c check_map_functions.c \
-close_game.c check_mem_alloc.c
+close_game.c check_mem_alloc.c check_components_functions.c
 SRCS=$(addprefix $(SRC_PATH), $(SRCS_NAMES))
-#SRCS_NAMES_BONUS= 
-#SRCS_BONUS=$(addprefix $(SRC_PATH), $(SRCS_NAMES))
+SRC_PATH_BONUS=src_bonus/
+SRCS_NAMES_BONUS= animation_functions_bonus.c \
+check_components_functions_bonus.c map_functions_bonus.c \
+check_map_functions_bonus.c so_long_bonus_bonus.c \
+check_mem_alloc_bonus.c so_long_utils_bonus.c \
+close_game_bonus.c keyboard_events_bonus.c
+SRCS_BONUS=$(addprefix $(SRC_PATH), $(SRCS_NAMES))
 OBJ_PATH=build/
 OBJS_NAMES=$(SRCS_NAMES:.c=.o)
 OBJS=$(addprefix $(OBJ_PATH), $(OBJS_NAMES))
-#OBJS_NAMES_BONUS=$(SRCS_NAMES_BONUS:.c=.o)
-#OBJS_BONUS=$(addprefix $(OBJ_PATH), $(OBJS_NAMES_BONUS))
+OBJ_PATH_BONUS=build_bonus/
+OBJS_NAMES_BONUS=$(SRCS_NAMES_BONUS:.c=.o)
+OBJS_BONUS=$(addprefix $(OBJ_PATH_BONUS), $(OBJS_NAMES_BONUS))
 MY_LIB_STATIC_NAME = libft.a
 LIBS= $(MY_LIB_STATIC_NAME:.a=) libmlx_Linux libX11 libXext libm
 LIB_PATH=lib/
@@ -45,11 +51,15 @@ libs:
 
 bonus: libs $(NAME_BONUS)
 
-$(NAME_BONUS): $(OBJS)
-	$(CC) $(CCFLAGS) $(OBJS) $(INCLUDE_FLAG) $(LIBS_FLAGS) -o $(NAME_BONUS)
+$(NAME_BONUS): $(OBJS_BONUS) $(LIB_STATIC)
+	$(CC) $(CCFLAGS) $(OBJS_BONUS) $(INCLUDE_FLAG) $(LIBS_FLAGS) -o $(NAME_BONUS)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	mkdir -p $(OBJ_PATH)
+	$(CC) $(CCFLAGS) -c $< -o $@ $(INCLUDE_FLAG)
+
+$(OBJ_PATH_BONUS)%.o: $(SRC_PATH_BONUS)%.c
+	mkdir -p $(OBJ_PATH_BONUS)
 	$(CC) $(CCFLAGS) -c $< -o $@ $(INCLUDE_FLAG)
 
 clean:

@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 23:03:02 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/09/12 17:35:38 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:57:10 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	check_mem(t_game *game, t_list **ptr_or_matrix_list, \
 void	get_map_info(t_game *game);
 void	get_map_fd(t_game *game, char **argv);
 void	check_map(t_game *game);
+void	check_map_components(t_game *game, char component, \
+	size_t y, size_t x);
 void	init_game_variables(t_game *game);
 int		handle_key_input(int key, t_game *game);
 int		loop_hook_animation(void *game);
