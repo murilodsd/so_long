@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:03:57 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/09/03 12:15:11 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/09/12 17:31:39 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,18 @@ void	*xpm_to_image(t_game *game, char *filename)
 	free (ptr_width);
 	free(ptr_heigth);
 	return (ptr_img);
+}
+
+void	free_exit_error(t_mem_allocation *mem_allocation, \
+	char *error_msg)
+{
+	if (errno != 0 && errno != 11)
+		ft_printf(2, "Error\n%s: %s\n", error_msg, strerror(errno));
+	else
+		ft_printf(2, "Error\n%s\n", error_msg);
+	if (mem_allocation->ptr_mem_list != NULL)
+		ft_lstclear(&(mem_allocation->ptr_mem_list), free);
+	if (mem_allocation->matrix_mem_list != NULL)
+		ft_lstclear(&(mem_allocation->matrix_mem_list), ft_free_matrix);
+	exit(EXIT_FAILURE);
 }

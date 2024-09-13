@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 16:03:51 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/09/12 17:59:47 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/09/12 17:03:55 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	get_map_info(t_game *game)
 	check_get_next_line_error(game, line);
 	if (line == NULL && errno == 0)
 		destroy_free_exit_error(game, "Empty map");
-	game->width = ft_strlen(line) - 1;
 	while (line)
 	{
 		game->height++;
@@ -60,6 +59,7 @@ void	get_map_info(t_game *game)
 		check_get_next_line_error(game, line);
 	}
 	game->map_matrix = ft_split(concat_lines, '\n');
+	game->width = ft_strlen(game->map_matrix[0]);
 	check_mem(game, &(game->mem_allocation.matrix_mem_list), \
 		game->map_matrix, "ft_split failed");
 }

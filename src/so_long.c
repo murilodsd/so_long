@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 21:17:12 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/09/12 17:37:28 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/09/12 17:08:39 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,11 @@ static void	init_game(t_game *game, char **argv)
 	game->mlx = mlx_init();
 	if (game->mlx == NULL)
 		destroy_free_exit_error(game, "mlx_init() failed");
-	errno = 0;
 	game->window = mlx_new_window(game->mlx, SIZE * game->width, \
 		SIZE * (game->height + 0.5), "Hello world!");
 	if (game->window == NULL)
 		destroy_free_exit_error(game, "mlx_new_window() failed");
+	errno = 0;
 }
 
 int	main(int argc, char **argv)

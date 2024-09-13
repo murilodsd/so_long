@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:14:34 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/09/02 20:44:34 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/09/12 17:33:08 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	destroy_free_exit_error(t_game *game, char *error_msg)
 {
 	call_destroy_functions(game);
 	get_next_line(-1);
-	ft_free_exit_error(&(game->mem_allocation), error_msg);
+	free_exit_error(&(game->mem_allocation), error_msg);
 }
 
 int	close_game(void *game)

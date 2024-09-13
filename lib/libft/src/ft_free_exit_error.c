@@ -6,11 +6,11 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:36:15 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/08/30 10:41:23 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/09/12 17:26:56 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/libft.h"
 
 void	ft_free_exit_error(t_mem_allocation *mem_allocation, \
 	char *error_msg)
