@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 21:17:12 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/09/12 17:08:39 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:40:20 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ static void	init_game(t_game *game, char **argv)
 	init_game_variables(game);
 	get_map_fd(game, argv);
 	get_map_info(game);
+	check_map(game);
 	game->mlx = mlx_init();
 	if (game->mlx == NULL)
 		destroy_free_exit_error(game, "mlx_init() failed");
@@ -108,7 +109,6 @@ static void	init_game(t_game *game, char **argv)
 		SIZE * (game->height + 0.5), "Hello world!");
 	if (game->window == NULL)
 		destroy_free_exit_error(game, "mlx_new_window() failed");
-	errno = 0;
 }
 
 int	main(int argc, char **argv)
@@ -121,7 +121,6 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	init_game(&game, argv);
-	check_map(&game);
 	init_images(&game);
 	init_map(&game);
 	mlx_string_put(game.mlx, game.window, 10, (game.height + 0.4) * SIZE, \

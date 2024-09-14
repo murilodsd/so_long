@@ -6,7 +6,7 @@
 #    By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 11:22:28 by mde-souz          #+#    #+#              #
-#    Updated: 2024/09/13 18:17:19 by mde-souz         ###   ########.fr        #
+#    Updated: 2024/09/14 19:48:20 by mde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRCS=$(addprefix $(SRC_PATH), $(SRCS_NAMES))
 SRC_PATH_BONUS=src_bonus/
 SRCS_NAMES_BONUS= animation_functions_bonus.c \
 check_components_functions_bonus.c map_functions_bonus.c \
-check_map_functions_bonus.c so_long_bonus_bonus.c \
+check_map_functions_bonus.c so_long_bonus.c \
 check_mem_alloc_bonus.c so_long_utils_bonus.c \
 close_game_bonus.c keyboard_events_bonus.c
 SRCS_BONUS=$(addprefix $(SRC_PATH), $(SRCS_NAMES))
@@ -34,10 +34,10 @@ OBJS_NAMES_BONUS=$(SRCS_NAMES_BONUS:.c=.o)
 OBJS_BONUS=$(addprefix $(OBJ_PATH_BONUS), $(OBJS_NAMES_BONUS))
 MY_LIB_STATIC_NAME = libft.a
 LIBS= $(MY_LIB_STATIC_NAME:.a=) libmlx_Linux libX11 libXext libm
-LIB_PATH=lib/
-LIBS_FLAGS= -L$(LIB_PATH) $(patsubst lib%, -l%, $(LIBS))
+LIB_PATH=lib/ minilibx-linux/
+LIBS_FLAGS= $(addprefix -L, $(LIB_PATH)) $(patsubst lib%, -l%, $(LIBS))
 LIB_STATIC = $(addprefix $(LIB_PATH) , $(INCLUDE_PATH))
-INCLUDE_PATH=./include/ ./lib/*/include/
+INCLUDE_PATH=./include/ ./lib/*/include/ minilibx-linux/
 INCLUDE_FLAG=$(addprefix -I , $(INCLUDE_PATH))
 RM=rm -f
 

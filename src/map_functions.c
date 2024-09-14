@@ -6,7 +6,7 @@
 /*   By: mde-souz <mde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 16:03:51 by mde-souz          #+#    #+#             */
-/*   Updated: 2024/09/13 19:58:22 by mde-souz         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:36:13 by mde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	get_map_fd(t_game *game, char **argv)
 	check_map_file_extension(game, map_file_name);
 	game->map_fd = open(map_file_name, O_RDONLY);
 	if (game->map_fd == -1)
-		destroy_free_exit_error(game, "Error opening file");
+		destroy_free_exit_error(game, \
+			"File doesn't exist or error opening file");
 }
 
 void	check_get_next_line_error(t_game *game, char *line)
